@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #16070e;
+    color: white;
+    overflow: hidden;
+}
+
+/* ---------------- GENERAL ---------------- */
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow-y: auto;
+    padding: 25px;
+}
+
+.page.active {
+    display: flex;
+}
+
+.content {
+    width: min(900px, 95%);
+    padding: 30px 20px;
+}
+
+#home .content {
+    padding-top: 100px;
+}
+h1 {
+    font-size: clamp(40px, 8vw, 75px);
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: clamp(30px, 6vw, 50px);
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 12px auto;
+    max-width: 760px;
+}
+
+button {
+    border: none;
+    padding: 15px 28px;
+    border-radius: 40px;
+    font-size: 17px;
+    cursor: pointer;
+    margin: 10px;
+    font-family: Georgia, serif;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+.main-btn {
+    background: white;
+    color: #8d234b;
+    font-weight: bold;
+}
+
+/* ---------------- FLOATING HEARTS ---------------- */
+
+.heart-float {
+    position: fixed;
+    bottom: -30px;
+    font-size: 22px;
+    animation: floatUp 7s linear infinite;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ---------------- HOME ---------------- */
+
+#home {
+    background:
+        radial-gradient(circle at top, #8b3155, transparent 45%),
+        linear-gradient(135deg, #180812, #46132c, #12060c);
+}
+
+.home-heart {
+    font-size: 85px;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes heartbeat {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.home-small {
+    font-size: 19px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* ---------------- SURPRISE ---------------- */
+
+#surprise {
+    background:
+        radial-gradient(circle at 20% 20%, #7b2347, transparent 40%),
+        linear-gradient(135deg, #210b16, #5c1734, #15070d);
+}
+
+.surprise-heart {
+    font-size: 90px;
+    margin-bottom: 15px;
+}
+
+/* ---------------- STORY ---------------- */
+
+#story {
+    background:
+        linear-gradient(rgba(55,12,32,0.82), rgba(35,9,23,0.88)),
+        radial-gradient(circle at top, #a04468, #321022);
+
+    align-items: flex-start;
+}
+.story-content {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.chapter {
+    background: rgba(255,255,255,0.075);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 25px;
+    padding: 28px;
+    margin: 25px auto;
+    max-width: 800px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+.chapter-date {
+    color: #ffc4d9;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.chapter p {
+    font-size: 17px;
+}
+
+.quote {
+    font-size: 23px;
+    color: #ffd3e2;
+    font-style: italic;
+    margin: 20px auto;
+}
+
+.back-next {
+    margin-top: 30px;
+}
+
+/* ---------------- PHOTOS ---------------- */
+
+#photos {
+    background:
+        linear-gradient(rgba(55,13,32,0.80), rgba(40,10,27,0.86)),
+        radial-gradient(circle at top, #91415f, #351126);
+
+    align-items: flex-start;
+}
+.photo-content {
+    padding-top: 45px;
+    padding-bottom: 80px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 850px;
+    margin: 30px auto;
+}
+
+.photo-card {
+    background: white;
+    padding: 10px 10px 18px 10px;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.photo-card:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.photo-card:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.photo-card:hover {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    z-index: 5;
+}
+
+.photo-card p {
+    color: #555;
+    font-size: 15px;
+    margin: 12px 5px 0;
+    font-family: Georgia, serif;
+}
+
+.photo-card img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
+
+
+.photo-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.photo-number {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.photo-caption {
+    font-size: 15px;
+    color: #ffd4e2;
+}
+
+/* ---------------- REASONS ---------------- */
+
+#reasons {
+    background:
+        radial-gradient(circle at bottom right, #742247, transparent 40%),
+        linear-gradient(135deg, #16070e, #48132b);
+}
+
+.reason-box {
+    max-width: 700px;
+    margin: 25px auto;
+}
+
+.reason {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 18px;
+    margin: 12px 0;
+    text-align: left;
+    font-size: 18px;
+}
+
+/* ---------------- FINAL ---------------- */
+
+#final {
+    background:
+        radial-gradient(circle at center, #8b3155, transparent 50%),
+        linear-gradient(135deg, #17070d, #4a132a, #10050a);
+}
+
+.final-heart {
+    font-size: 90px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.final-text {
+    font-size: 20px;
+    line-height: 2;
+}
+
+.signature {
+    margin-top: 30px;
+    font-size: 27px;
+    color: #ffd0df;
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 700px) {
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .chapter {
+        padding: 22px 17px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* 💌 Falling Hearts Animation */
+.falling-heart {
+    position: fixed;
+    top: -30px;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fallHeart 3s linear forwards;
+}
+
+@keyframes fallHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+/* 📸 Safe Polaroid Animation */
+.photo-card.photo-pop {
+    animation: polaroidPop 0.6s ease forwards;
+}
+
+@keyframes polaroidPop {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.85) rotate(-3deg);
+    }
+
+    70% {
+        transform: scale(1.03) rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+/* 💗 Heartbeat Button */
+.heartbeat-btn {
+    animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.06);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.06);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+}
+/* ✨ Sparkle Reveal */
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 20px;
+    animation: sparkleReveal 1.2s ease-out forwards;
+}
+
+@keyframes sparkleReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(0deg);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.2) rotate(90deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(180deg);
+    }
+}
+/* 💗 Dreamy Home Page */
+/* 💗 Original Dreamy Home Colours */
+
+#home {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top, #8b3155, transparent 45%),
+        linear-gradient(135deg, #180812, #46132c, #12060c);
+}
+.home-title {
+    font-size: clamp(48px, 8vw, 82px);
+    margin: 30px 0 15px;
+    color: white;
+    text-align: center;
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 6px rgba(255,255,255,0.5),
+        0 0 14px rgba(255,255,255,0.35),
+        0 0 25px rgba(255,190,220,0.4);
+
+    animation: titleGlow 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        transform: scale(1);
+        text-shadow:
+            0 0 6px rgba(255,255,255,0.5),
+            0 0 14px rgba(255,255,255,0.35);
+    }
+
+    to {
+        transform: scale(1.02);
+        text-shadow:
+            0 0 9px rgba(255,255,255,0.6),
+            0 0 20px rgba(255,255,255,0.45),
+            0 0 30px rgba(255,190,220,0.5);
+    }
+}
+
+.home-btn {
+    padding: 16px 34px;
+    font-size: 19px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+    animation: buttonFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes buttonFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.home-btn:hover {
+    transform: scale(1.08);
+}
+/* Keep only the styled Home title */
+#home h1:not(.home-title) {
+    display: none !important;
+}
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="song.mp3" loop></audio>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+
+<!-- FLOATING HEARTS -->
+
+<div class="heart-float" style="left:8%;animation-delay:0s;">❤️</div>
+<div class="heart-float" style="left:20%;animation-delay:2s;">💗</div>
+<div class="heart-float" style="left:35%;animation-delay:4s;">💕</div>
+<div class="heart-float" style="left:50%;animation-delay:1s;">💖</div>
+<div class="heart-float" style="left:67%;animation-delay:3s;">💘</div>
+<div class="heart-float" style="left:82%;animation-delay:5s;">❤️</div>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+    <div class="content">
+
+        <h1 class="home-title">For My Bubuuuuu 💗</h1>
+
+        <p class="home-small">
+            A little surprise made with a whole lot of love... 🥹💗
+        </p>
+
+        <button class="main-btn home-btn" onclick="showPage('surprise')">
+            Open Your Surprise 💌
+        </button>
+
+    </div>
+
+</section>
+<!-- ================= SURPRISE ================= -->
+
+<section id="surprise" class="page">
+
+<div class="content">
+
+<div class="surprise-heart">💌</div>
+
+<h1>Hey Bubuuuuu... 🥹❤️</h1>
+
+<p>
+I made something for you.
+</p>
+
+<p>
+Not because I had to...
+<br>
+but because I wanted to keep all our little memories somewhere special. 🫶🏻
+</p>
+
+<p>
+Every silly moment.
+Every conversation.
+Every memory.
+Every tiny detail.
+</p>
+
+<p>
+So... are you ready to remember how <b>we</b> happened? 🌷
+</p>
+
+<button class="main-btn" onclick="showPage('story')">
+Let's Go... 💗
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= STORY ================= -->
+
+<section id="story" class="page">
+
+<div class="content story-content">
+
+<h2>Our Story 💌</h2>
+
+<p class="quote">
+“Sometimes the biggest stories begin with the smallest conversations.” ❤️
+</p>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🌷 7 October 2025</div>
+
+<h3>The Message That Started Everything</h3>
+
+<p>
+If someone had told me on 7 October 2025 that one random conversation would turn into our story, I probably wouldn't have believed them. 🥹❤️
+</p>
+
+<p>
+It all started because you were in charge of singing, and the faculty told me to connect with you because I was one of the singing contestants. 🎶
+</p>
+
+<p>
+Then you texted me asking for my friend's number so you could contact me.
+</p>
+
+<p>
+And little did you know 😂
+</p>
+
+<p class="quote">
+“I’m the only one you’re searching for.” 🙈❤️
+</p>
+
+<p>
+We started talking about my song and my performance.
+</p>
+
+<p>
+It was such a normal conversation.
+Nothing dramatic.
+Nothing that looked like the beginning of something huge.
+</p>
+
+<p>
+But secretly... I already had a little crush on you from the very first day. 🫣💗
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🎤 8 October 2025</div>
+
+<h3>The Day You Showed Me You Cared</h3>
+
+<p>
+The next day was performance day.
+</p>
+
+<p>
+You came late to college🥺, around noon, and I performed.
+</p>
+
+<p>
+But I wasn't happy with the Miss Freshers results. 😔
+</p>
+
+<p>
+I told you about it.
+</p>
+
+<p>
+And instead of simply saying “don't worry,” you actually took me to the faculty member in charge.
+</p>
+
+<p>
+You tried to help me.
+</p>
+
+<p>
+Later that night, we talked again.
+</p>
+
+<p>
+You told me that you weren't satisfied with the results either, even though there wasn't really anything you could do about it.
+</p>
+
+<p>
+Maybe it was a small moment...
+but I noticed it. 🥺❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🎂 9 October 2025</div>
+
+<h3>Happy Birthday, Sir</h3>
+
+<p>
+Then came your birthday.
+</p>
+
+<p>
+I found out it was your birthday and literally ran after you in the hall calling you “Sir” because faculty had told us juniors to call seniors sir or ma'am. 😂😭
+</p>
+
+<p>
+I wished you.
+</p>
+
+<p>
+And later that night I texted:
+</p>
+
+<p class="quote">
+“Is the cake celebration done?” 🎂😂
+</p>
+
+<p>
+That conversation became another long conversation.
+</p>
+
+<p>
+You had recently gone through a breakup and weren't completely over it.
+</p>
+
+<p>
+So we didn't rush into anything.
+We were friends.
+Just friends.
+</p>
+
+<p>
+But meanwhile, my tiny little crush was getting bigger and bigger. 🫣❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">📱 Those first few days</div>
+
+<h3>The Instagram Girl</h3>
+
+<p>
+Only around five or six days into our friendship, another girl messaged you on Instagram and told you that she had feelings for you.
+</p>
+
+<p>
+And honestly?
+I was scared. 😭
+</p>
+
+<p>
+I was scared that you might accept her🥺.
+</p>
+
+<p>
+You told me about her.
+You asked for my advice.
+You listened to what I thought you should say.
+</p>
+
+<p>
+And you didn't reply to her in the way I was afraid you might.
+</p>
+
+<p>
+That meant more to me than you probably realized. 🥹
+</p>
+
+<p>
+After that, our friendship became a routine.
+</p>
+
+<p>
+Morning texts. 🌅
+<br>
+Afternoon conversations. ☀️
+<br>
+Evening talks. 🌆
+<br>
+Night conversations. 🌙
+</p>
+
+<p>
+Sometimes we'd talk for almost the entire night. 😂❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">📚 November</div>
+
+<h3>The Other Boy</h3>
+
+<p>
+Then came November.
+Your GATE exam was getting closer.
+</p>
+
+<p>
+And while all of that was happening, another boy approached me.
+</p>
+
+<p>
+I talked to him.
+</p>
+
+<p>
+But the truth was...
+</p>
+
+<p class="quote">
+My heart already had someone else.
+<br>
+You. ❤️
+</p>
+
+<p>
+I had such a strong crush on you, but I didn't tell you.
+</p>
+
+<p>
+Because our friendship was so pure to me.
+I was scared that if I said what I really felt, I might lose you.
+</p>
+
+<p>
+So I tried to give you space.
+</p>
+
+<p>
+I reduced the attention I gave you because I wanted you to concentrate on your studies.
+</p>
+
+<p>
+I ignored some texts.
+I ignored some calls.
+</p>
+
+<p>
+I tried to convince myself that I was doing the right thing.
+</p>
+
+<p>
+But you kept coming back.
+</p>
+
+<p>
+You kept texting.
+You kept calling.
+You kept looking for me.
+</p>
+
+<p>
+And somewhere in those days, I realized that you had become attached to me too. 🥺❤️
+</p>
+
+<p>
+After a few days, I stopped talking to that other boy.
+</p>
+
+<p>
+And I came back to talking to you.
+Properly.
+</p>
+
+<p>
+And somehow, we went right back to those endless conversations.
+</p>
+
+<p>
+Sometimes we'd talk for the entire night. 🌙🫶🏻
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🌳 College Days</div>
+
+<h3>You Waited For Me</h3>
+
+<p>
+You were in your final year.
+I was in my first year.
+</p>
+
+<p>
+And still, you would come to college just to meet me.
+</p>
+
+<p>
+Sometimes you'd wait for hours while I attended lectures. 🥹
+</p>
+
+<p>
+And once I was finally free, we'd walk around the college garden, talk, laugh and just spend time together. 🌸
+</p>
+
+<p>
+People started noticing.
+</p>
+
+<p>
+Then came the rumors.
+</p>
+
+<p>
+People started talking about us.
+Even faculty knew. 👀😂
+</p>
+
+<p>
+But somehow, none of that stopped us from choosing each other.
+</p>
+
+<p>
+And yes...
+we both became a little possessive too. 😂❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">✨ February — SORCE</div>
+
+<h3>The Day I Saw You Differently</h3>
+
+<p>
+Then came the three-day SORCE event.
+</p>
+
+<p>
+You were the president of the department🙈.
+And I wasn't even supposed to attend because I was a first-year student.
+</p>
+
+<p>
+But I still found little opportunities to see you. 🥹
+</p>
+
+<p>
+And then came the last day.
+</p>
+
+<p>
+You were wearing your blazer.
+Your hair was long.
+You had your sunglasses on. 😎
+</p>
+
+<p>
+And I don't know what exactly happened in that moment...
+but when I looked at you, something felt different.
+</p>
+
+<p>
+I remember thinking that maybe...
+</p>
+
+<p class="quote">
+I was actually falling in love with you. ❤️
+</p>
+
+<p>
+You played box cricket and I watched you.
+</p>
+
+<p>
+Later, you were completely exhausted and rested your head on the table near me.
+</p>
+
+<p>
+And somehow that tiny moment stayed in my heart. 🥺💗
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🎭 Sparsh</div>
+
+<h3>You Became My Partner</h3>
+
+<p>
+Then came our annual function, Sparsh.
+</p>
+
+<p>
+I was participating in anchoring, singing and the fashion show.
+</p>
+
+<p>
+But there was one problem...
+</p>
+
+<p>
+I didn't have a partner.
+</p>
+
+<p>
+So you became my partner. 🥹❤️
+</p>
+
+<p>
+You were already in your final year.
+You've already got the title.
+You didn't really need to participate in everything anymore.
+</p>
+
+<p>
+But you still did the fashion show.
+</p>
+
+<p>
+And that day, you somehow became my personal assistant. 😂😭❤️
+</p>
+
+<p>
+You carried my heels. 👠
+<br>
+You brought me water. 💧
+<br>
+You helped with my meal. 🍱
+<br>
+You carried my lipstick. 💄
+<br>
+You kept track of my mobile. 📱
+</p>
+
+<p>
+You were basically carrying everything except me. 😂🫶🏻
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">✈️ 16 February → 20 February</div>
+
+<h3>The Days We Couldn't Practice</h3>
+
+<p>
+You went to Chennai with your friends on 16 February.
+You came back on 20 February.
+</p>
+
+<p>
+And suddenly we realized...
+</p>
+
+<p class="quote">
+WE HAD BARELY PRACTICED OUR RAMP WALK. 😭😂
+</p>
+
+<p>
+Our costumes weren't even ready.
+</p>
+
+<p>
+So we decided we'd practice at your home.
+</p>
+
+<p>
+On the evening of 20 February, I went to your house.
+</p>
+
+<p>
+We had chicken biryani. 🍗🍚❤️
+</p>
+
+<p>
+And then...
+practice?
+</p>
+
+<p class="quote">
+Absolutely not. 😂
+</p>
+
+<p>
+We were too full.
+</p>
+
+<p>
+So we did timepass instead.
+Talked.
+Relaxed.
+And eventually slept.
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🌙 21 February → 22 February</div>
+
+<h3>The Beginning of Us</h3>
+
+<p>
+The next day, 21 February, we went to college.
+</p>
+
+<p>
+And somehow...
+we still hadn't practiced properly. 😂😭
+</p>
+
+<p>
+So I went to your home again.
+</p>
+
+<p>
+We had dinner.
+</p>
+
+<p>
+You said you were going to sleep.
+You asked if you could rest with your head on my lap.
+</p>
+
+<p>
+We were getting closer🥰.
+</p>
+
+<p>
+Closer and closer..that we had some unforgettable moments together.
+</p>
+
+<p>
+Distance between us was barely visible.
+more closer...
+</p>
+
+<p>
+There was a moment when everything suddenly felt different.
+</p>
+
+<p>
+I got scared because I didn't want to lose the friendship we had built.
+</p>
+
+<p>
+And then you asked if we should stop.
+You gave me the choice.
+</p>
+
+<p>
+And I realized...
+I didn't want to run away from what I was feeling.
+</p>
+
+<p>
+After midnight, it became 22 February. 🌙❤️
+</p>
+
+<p class="quote">
+And that became the day we officially became US. 🥹❤️
+</p>
+
+<p>
+Our first kiss.
+Our first real promise to be together.
+Our beginning. 💗
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🏸🎯 Little Things</div>
+
+<h3>Our Everyday Memories</h3>
+
+<p>
+We played badminton. 🏸
+</p>
+
+<p>
+We cheered for each other.
+</p>
+
+<p>
+I played carrom. 🎯
+</p>
+
+<p>
+You cheered for me.
+</p>
+
+<p>
+And I won. 😌😂❤️
+</p>
+
+<p>
+It wasn't really about badminton or carrom.
+It was about having someone beside me who genuinely wanted to see me happy.
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🛍️ 24 February</div>
+
+<h3>Costumes, Stalls & Little Things</h3>
+
+<p>
+On 24 February, we went to the market for costumes.
+</p>
+
+<p>
+You helped me with the things I needed for my college stall too.
+</p>
+
+<p>
+Another ordinary day.
+Another memory.
+Another little piece of us. 🥹💗
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🌟 A Little Push From You</div>
+
+<h3>You Believed In Me</h3>
+
+<p>
+You encouraged me to file my nomination for college positions.
+</p>
+
+<p>
+You pushed me to believe that I could actually do it.
+</p>
+
+<p>
+And eventually, I got selected as the girls' representative. 🥹✨
+</p>
+
+<p>
+You believed in me.
+Sometimes even when I wasn't sure about myself.
+</p>
+
+<p>
+And I'll always remember that. ❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">👗 28 February</div>
+
+<h3>Fashion Show Day</h3>
+
+<p>
+On fashion show day, we met at your home.
+</p>
+
+<p>
+My dress wasn't ready.
+</p>
+
+<p>
+And somehow, you helped me get ready. 🥹❤️
+</p>
+
+<p>
+Then we both went and did the fashion show.
+</p>
+
+<p>
+After everything was over...
+you went home.
+I went back to the hostel.
+</p>
+
+<p>
+And somewhere between the singing event, birthday wishes, Instagram conversations, late-night talks, college gardens, rumors, SORCE, Sparsh, chicken biryani, unpracticed ramp walks, badminton, carrom, costumes and countless tiny moments...
+</p>
+
+<p class="quote">
+Our love story had begun. ❤️
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<div class="chapter-date">🌧️ April</div>
+
+<h3>When Things Got Difficult</h3>
+
+<p>
+Not every part of our story has been easy.
+</p>
+
+<p>
+In April, your family found out about us.
+</p>
+
+<p>
+They wanted us to separate and didn't want us to stay in contact.
+</p>
+
+<p>
+And suddenly, something that had felt so beautiful and simple became difficult.
+</p>
+
+<p>
+There were ups and downs.
+There were nights of overthinking.
+There were tears.
+There were moments where everything felt uncertain. 😔
+</p>
+
+<p>
+We had to face things neither of us had expected.
+</p>
+
+<p>
+But through all of it, we still cared about each other.
+</p>
+
+<p>
+We're still figuring things out.
+Still growing.
+Still learning.
+Still trying to understand what the future looks like.
+</p>
+
+<p>
+But no matter how complicated things became, all those little memories stayed with me.
+</p>
+
+</div>
+
+
+<div class="chapter">
+
+<h3>💗 And Then There Was Us...</h3>
+
+<p>
+Our story isn't just one big moment.
+</p>
+
+<p>
+It's hundreds of tiny moments.
+</p>
+
+<p>
+A message. 📱
+<br>
+A birthday wish. 🎂
+<br>
+A song. 🎶
+<br>
+A garden walk. 🌸
+<br>
+You waiting for me. 🥹
+<br>
+People talking about us. 👀
+<br>
+A blazer and sunglasses. 😎
+<br>
+A fashion show. 👗
+<br>
+You carrying my heels. 👠
+<br>
+Chicken biryani. 🍗😂
+<br>
+A terrible attempt at practicing a ramp walk. 😭
+<br>
+Badminton. 🏸
+<br>
+Carrom. 🎯
+<br>
+A college nomination. 🌟
+<br>
+Late-night conversations. 🌙
+<br>
+And the moment we finally became US. ❤️
+</p>
+
+<p class="quote">
+Every tiny detail became a piece of our story. 💌
+</p>
+
+</div>
+
+
+<button class="main-btn" onclick="showPage('photos')">
+Our Memories 📸❤️
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= PHOTOS ================= -->
+
+<section id="photos" class="page">
+
+<div class="content photo-content">
+
+<h2>Our Memories 📸</h2>
+
+<p>
+15 little spaces for 15 memories that mean something to us. 🥹❤️
+</p>
+<div class="photo-grid">
+
+    <div class="photo-card">
+       <img src="photo1.jpg">
+        <p>Just you being you 💗</p>
+    </div>
+
+    <div class="photo-card">
+       <img src="photo2.jpg">
+        <p>One of my favourite little moments 🥹</p>
+    </div>
+
+    <div class="photo-card">
+       <img src="photo3.jpg">
+        <p>A little memory of you ✨</p>
+    </div>
+
+    <div class="photo-card">
+       <img src="photo4.jpg">
+        <p>College memories 🎓</p>
+    </div>
+
+    <div class="photo-card">
+       <img src="photo5.jpg">
+        <p>How are you this cute? 😭</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo6.jpg">
+        <p>A little piece of us 🫶🏻</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo7.jpg">
+        <p>This one makes me smile 💕</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo8.jpg">
+        <p>A memory worth keeping 📸</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo9.jpg">
+        <p>my fav kind of chaos 😂</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo10.jpg">
+        <p>Another little memory 💗</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo11.jpg">
+        <p>One for the memory box 🥹</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo12.jpg">
+        <p>Some moments just stay ✨</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo13.jpg">
+        <p>One picture, so many feelings 💞</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo14.jpg">
+        <p>A memory I'll always treasure 🌷</p>
+    </div>
+
+    <div class="photo-card">
+        <img src="photo15.jpg">
+        <p>My silly boy❤️🤭</p>
+    </div>
+
+</div>
+<button class="main-btn heartbeat-btn" onclick="fallingHearts(); setTimeout(() => showPage('reasons'), 700)">   
+ There Is More... 💗
+</button>
+</div>
+
+</section>
+
+
+<!-- ================= REASONS ================= -->
+
+<section id="reasons" class="page" style="padding-top:80px; box-sizing:border-box;">
+
+<div class="content">
+
+<h1 style="font-size:42px; text-align:center; margin:10px;">Things I Love About You 💗</h1>
+<div class="reason-box">
+
+<div class="reason">
+🌷 You show up for me, even when you don't have to.
+</div>
+
+<div class="reason">
+🫶🏻 You listen to the little things I say.
+</div>
+
+<div class="reason">
+📚 You encouraged me to believe in myself.
+</div>
+
+<div class="reason">
+💧 You notice when I need help, even with the smallest things.
+</div>
+
+<div class="reason">
+😂 You somehow turn ordinary moments into memories.
+</div>
+
+<div class="reason">
+🌙 You became the person behind so many of my late-night conversations.
+</div>
+
+<div class="reason">
+❤️ You made friendship feel like something incredibly special.
+</div>
+
+<div class="reason">
+🥹 You became a part of my everyday life without me even realizing it.
+</div>
+
+<div class="reason">
+🌸 You are connected to so many of my happiest college memories.
+</div>
+
+<div class="reason">
+💗 And most importantly... you are YOU.
+</div>
+
+</div>
+
+<button class="main-btn" onclick="showPage('final')">
+One Last Thing... 💌
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section id="final" class="page">
+
+<div class="content">
+
+<div class="final-heart">❤️</div>
+
+<h2>Bubuuuuu... 🥹</h2>
+
+<p class="final-text">
+
+If someone had shown me the future on
+<b>7 October 2025</b>,
+I would never have believed that the person I was texting about a singing performance would become such an important part of my life.
+
+<br><br>
+
+I didn't know that one random message would become morning texts. 🌅
+
+<br>
+
+I didn't know that a birthday wish would become a friendship. 🎂
+
+<br>
+
+I didn't know that friendship would become love. ❤️
+
+<br>
+
+I didn't know that college rumors would become memories. 👀
+
+<br>
+
+I didn't know that SORCE would make me look at you differently. ✨
+
+<br>
+
+I didn't know that Sparsh would make us partners. 🎭
+
+<br>
+
+I didn't know that two people who couldn't even properly practice their ramp walk would create one of their biggest memories together. 😂❤️
+
+<br><br>
+
+And I definitely didn't know that
+<b>22 February</b>
+would become our special day. 🥹💗
+
+<br><br>
+
+Our story isn't perfect.
+
+It's funny.
+
+It's messy.
+
+It's unexpected.
+
+It's emotional.
+
+It's sometimes difficult.
+
+But every tiny detail makes it
+<b>OURS.</b> ❤️
+
+<br><br>
+
+And if I could go back to that very first message...
+
+knowing everything that would happen after it...
+
+<br><br>
+
+<b>I'd still reply. 🥹❤️</b>
+
+<br><br>
+
+Because somewhere between that first
+“hello”
+and all those
+“good nights”...
+
+<br><br>
+
+<b>you became someone incredibly special to me.</b> 🌷
+
+</p>
+
+<div class="signature">
+
+Happy Boyfriend's Day, Bubuuuuu. 🫶🏻💗
+
+<br><br>
+
+Thank you for all the tiny things. 💌
+
+<br>
+
+Thank you for all the memories. 🌸
+
+<br>
+
+Thank you for being a part of my story. ❤️
+
+<br><br>
+
+<b>And this is only the beginning... ✨</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+function showPage(pageId) {
+
+    const pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+    if (pageId === "photos") {
+        polaroidShuffle();
+     }
+    if (pageId === "reasons") {
+    sparkleReveal();
+}
+
+    document.getElementById(pageId).scrollTop = 0;
+}
+function fallingHearts() {
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+
+        heart.className = "falling-heart";
+        heart.innerHTML = "💗";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 1.5 + "s";
+        heart.style.fontSize = (18 + Math.random() * 18) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4500);
+    }
+}
+function polaroidShuffle() {
+    const photos = document.querySelectorAll("#photos .photo-card");
+
+    photos.forEach((photo, index) => {
+        setTimeout(() => {
+            photo.classList.add("photo-pop");
+        }, index * 150);
+    });
+}
+function sparkleReveal() {
+    const sparkles = ["✨", "✦", "⋆", "💫"];
+
+    for (let i = 0; i < 18; i++) {
+        const sparkle = document.createElement("div");
+
+        sparkle.className = "sparkle";
+        sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+
+        sparkle.style.left = (20 + Math.random() * 60) + "vw";
+        sparkle.style.top = (20 + Math.random() * 50) + "vh";
+        sparkle.style.animationDelay = (Math.random() * 0.7) + "s";
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, 2000);
+    }
+}
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+</script>
+
+</body>
+</html>
